@@ -26,7 +26,7 @@ public class App {
 
             // Uncomment this if you have files in the Images Directory
             config.addStaticFiles(IMAGES_DIR);
-        }).start(JAVALIN_PORT);
+        }).start("0.0.0.0", JAVALIN_PORT);
         //task2();
         //task3(); 
 
