@@ -2,6 +2,7 @@
 
 ## Project Overview
 This project is a Java web application for visualizing and managing public WiFi locations in Victoria, Australia. It uses a SQLite database and a lightweight web server to provide a user-friendly interface for exploring WiFi access points.
+Try it out at [https://publicwifi-backend-189312279476.australia-southeast1.run.app/type]
 
 ## Folder Structure
 ```bash
