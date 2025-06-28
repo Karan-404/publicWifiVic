@@ -41,11 +41,8 @@ public class App {
     }
 
     public static void configureRoutes(Javalin app) {
-        // Serve thesidequest.html as the new homepage at "/" by reading and returning its content
-        app.get("/", ctx -> {
-            ctx.contentType("text/html");
-            ctx.result(java.nio.file.Files.readString(java.nio.file.Paths.get("target/classes/thesidequest.html")));
-        });
+        // Remove duplicate root route registration to avoid conflict
+        // app.get(HomePage.URL, new HomePage());
         app.get(PageIndexKS.URL, new PageIndexKS());
         app.get(PageLocations.URL, new PageLocations());
         app.get(Status.URL, new Status());

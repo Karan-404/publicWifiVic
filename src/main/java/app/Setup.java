@@ -23,17 +23,17 @@ public class Setup implements Handler {
         html = html + "</head>";
 
         // Add the body
-        html += "<body>";
-        // Add thesidequest.com header
-        html += "<div style='text-align:center; font-size:2rem; font-weight:bold; margin: 1.5rem 0 1rem 0;'><a href='/' style='color:inherit; text-decoration:none;'>thesidequest.com</a></div>";
+        html = html + "<body>";
+
         // Add the topnav
-        html += """
+        // This uses a Java v15+ Text Block
+        html = html + """
             <div class='topnav'>
-                <a href='/project'>Project Homepage</a>
-                <a href='/location'>WiFi Locations</a>
-                <a href='/type'>Connection Types</a>
-                <a href='/status1'>Network Status</a>
-                <a href='/setup'>Setup & Safety</a>
+                <a href='/'>Public Wi-Fi Homepage</a>
+                <a href='/location'> Wi-Fi Locations</a>
+                <a href='/type'> Wi-Fi Types</a>
+                <a href='/status1'>Wi-Fi status</a>
+                <a href='/setup'>Setup and Safety</a>
             </div>
         """;
 

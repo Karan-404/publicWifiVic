@@ -29,12 +29,9 @@ public void handle(Context context) throws Exception {
 
     // Add the body
     html += "<body>";
-    // Add thesidequest.com header
-    html += "<div style='text-align:center; font-size:2rem; font-weight:bold; margin: 1.5rem 0 1rem 0;'><a href='/' style='color:inherit; text-decoration:none;'>thesidequest.com</a></div>";
-    // Add the topnav
     html += """
         <div class='topnav'>
-            <a href='/project'>Project Homepage</a>
+            <a href='/'>Public Wi-Fi Hub</a>
             <a href='/location'>WiFi Locations</a>
             <a href='/type'>Connection Types</a>
             <a href='/status1'>Network Status</a>

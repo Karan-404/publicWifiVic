@@ -7,7 +7,7 @@ import io.javalin.http.Handler;
 public class PageIndexKS implements Handler {
 
     // URL of this page relative to http://localhost:7002/
-    public static final String URL = "/project";
+    public static final String URL = "/";
 
     @Override
     public void handle(Context context) throws Exception {
@@ -25,14 +25,11 @@ public class PageIndexKS implements Handler {
         // Add the body
         html = html + "<body>";
 
-        // Add thesidequest.com header
-        html = html + "<div style='text-align:center; font-size:2rem; font-weight:bold; margin: 1.5rem 0 1rem 0;'><a href='/' style='color:inherit; text-decoration:none;'>thesidequest.com</a></div>";
-
         // Add the topnav
         // This uses a Java v15+ Text Block
         html = html + """
             <div class='topnav'>
-                <a href='/project'>Project Homepage</a>
+                <a href='/'>Public Wi-Fi Hub</a>
                 <a href='/location'>WiFi Locations</a>
                 <a href='/type'>Connection Types</a>
                 <a href='/status1'>Network Status</a>
