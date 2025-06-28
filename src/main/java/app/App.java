@@ -12,7 +12,7 @@ import io.javalin.core.util.RouteOverviewPlugin;
  */
 public class App {
 
-    public static final int         JAVALIN_PORT    = 7002;
+    public static final int         JAVALIN_PORT    = Integer.parseInt(System.getenv().getOrDefault("PORT", "7002"));
     public static final String      CSS_DIR         = "css/";
     public static final String      IMAGES_DIR      = "images/";
 
