@@ -27,8 +27,7 @@ public class App {
             // Uncomment this if you have files in the Images Directory
             config.addStaticFiles(IMAGES_DIR);
         }).start(JAVALIN_PORT);
-        //task2();
-        //task3(); 
+        
 
         // Configure Web Routes
         configureRoutes(app);
