@@ -1,8 +1,8 @@
-# VicFreeWiFi Web Application
+# publicWifiVic Web Application
 
 ## Project Overview
 This project is a Java web application for visualizing and managing public WiFi locations in Victoria, Australia. It uses a SQLite database and a lightweight web server to provide a user-friendly interface for exploring WiFi access points.
-Try it out at [https://publicwifi-backend-189312279476.australia-southeast1.run.app/type]
+Try it out at ~~[https://publicwifi-backend-189312279476.australia-southeast1.run.app/type]~~ (Currently Down)
 
 ## Folder Structure
 ```bash
@@ -55,7 +55,7 @@ All dependencies are managed via Maven in `pom.xml`.
 
 ---
 
-© 2025 VicFreeWiFi Project Team
+© 2023 VicFreeWiFi Project Team
 
 
 
