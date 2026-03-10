@@ -52,6 +52,40 @@ All dependencies are managed via Maven in `pom.xml`.
 
 
 
+## GitHub Pages (Static Site)
+
+This repository includes a minimal static site for deployment via **GitHub Pages**.
+
+### Enabling GitHub Pages
+
+1. Go to **Settings → Pages** in this repository.
+2. Under **Build and deployment**, set:
+   - **Source**: `Deploy from a branch`
+   - **Branch**: `main`
+   - **Folder**: `/ (root)`
+3. Click **Save**.
+
+### Published URL
+
+Once Pages is enabled, the site is available at:
+
+> **<https://karan-404.github.io/publicWifiVic/>**
+
+### Static files added
+
+| File | Purpose |
+|------|---------|
+| `index.html` | Landing page served by GitHub Pages |
+| `404.html` | Custom 404 error page |
+| `assets/style.css` | Stylesheet for the static pages |
+
+### Important note about Java source
+
+The Java source code under `src/main/java/app` is **not executed by GitHub Pages**.  
+GitHub Pages serves only **static files** (HTML/CSS/JS).  
+The running Java backend is deployed separately at  
+<https://publicwifi-backend-189312279476.australia-southeast1.run.app/type>
+
 ---
 
 © 2025 VicFreeWiFi Project Team
