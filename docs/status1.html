@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Network Status - Public WiFi Melbourne</title>
+    <link rel="stylesheet" type="text/css" href="css/common.css" />
+    <script src="data/wifi-data.js"></script>
+</head>
+<body>
+
+<div class="topnav">
+    <a href="index.html">Public Wi-Fi Hub</a>
+    <a href="location.html">WiFi Locations</a>
+    <a href="type.html">Connection Types</a>
+    <a href="status1.html">Network Status</a>
+    <a href="setup.html">Setup &amp; Safety</a>
+</div>
+
+<div class="header">
+    <h1>
+        <img src="images/wifilogo.png" class="top-image" alt="WiFi logo" height="75">
+        <span class="gradient-text">Public WiFi Melbourne Network Status</span>
+    </h1>
+    <p class="header-subtitle">Real-time Wi-Fi network status across Melbourne</p>
+</div>
+
+<div class="content">
+    <div class="table-header">
+        <h2 class="table-title">Network Status Overview</h2>
+        <span class="table-count" id="statusTypeCount">0 status types</span>
+    </div>
+
+    <div class="cards-grid" style="grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); margin-bottom: 3rem;" id="statusCards">
+    </div>
+
+    <div class="search-form">
+        <label for="statusFilter">Filter networks by status:</label>
+        <select id="statusFilter" style="padding: 0.75rem; border: 2px solid #e5e7eb; border-radius: 8px; font-size: 1rem; margin-bottom: 1rem;">
+            <option value="">Show All Networks</option>
+            <option value="UP">Active Networks (UP)</option>
+            <option value="FUTURE">Future Networks</option>
+        </select>
+        <input type="submit" value="Apply Filter" onclick="applyFilter()">
+    </div>
+
+    <div class="table-header">
+        <h2 class="table-title">Network Status Details</h2>
+        <span class="table-count" id="networkCount">0 networks found</span>
+    </div>
+
+    <div class="table-container">
+        <table class="modern-table">
+            <thead>
+                <tr>
+                    <th>Network Name</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody id="statusTableBody">
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div class="footer">
+    <div class="footer-content">
+        <div class="footer-section">
+            <p class="footer-heading">Contact Information</p>
+            <p class="footer-text">Email: ping@thesubquest.com</p>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <p class="footer-copyright">&copy; 2023 Melbourne Public WiFi Hub. All rights reserved.</p>
+    </div>
+</div>
+
+<script>
+    function escapeHtml(str) {
+        if (!str) return '';
+        return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+    }
+
+    function applyFilter() {
+        var filter = document.getElementById('statusFilter').value;
+        renderStatus(filter);
+    }
+
+    function renderStatus(filter) {
+        var filtered = filter
+            ? wifiData.filter(function(loc) { return loc.status === filter; })
+            : wifiData;
+
+        var tbody = document.getElementById('statusTableBody');
+        tbody.innerHTML = '';
+        filtered.forEach(function(loc) {
+            var badge = loc.status === 'UP'
+                ? '<span style="background:#22c55e;color:white;padding:0.25rem 0.75rem;border-radius:20px;font-size:0.85rem;font-weight:600;">Active</span>'
+                : '<span style="background:#f59e0b;color:white;padding:0.25rem 0.75rem;border-radius:20px;font-size:0.85rem;font-weight:600;">Future</span>';
+            var row = document.createElement('tr');
+            row.innerHTML = '<td>' + escapeHtml(loc.name) + '</td><td>' + badge + '</td>';
+            tbody.appendChild(row);
+        });
+
+        document.getElementById('networkCount').textContent = filtered.length + ' networks found';
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+        // Build status counts for overview cards
+        var statusCounts = {};
+        wifiData.forEach(function(loc) {
+            var s = loc.status || 'UNKNOWN';
+            statusCounts[s] = (statusCounts[s] || 0) + 1;
+        });
+
+        var statuses = Object.keys(statusCounts);
+        document.getElementById('statusTypeCount').textContent = statuses.length + ' status types';
+
+        var cardsDiv = document.getElementById('statusCards');
+        statuses.forEach(function(status) {
+            var cardClass = status === 'UP' ? 'card card-success' : 'card card-warning';
+            var card = document.createElement('div');
+            card.className = cardClass;
+            card.innerHTML = '<h3 class="card-title">' + escapeHtml(status) + ' Networks</h3>'
+                           + '<p class="card-text">Currently ' + statusCounts[status] + ' networks are ' + escapeHtml(status.toLowerCase()) + '</p>';
+            cardsDiv.appendChild(card);
+        });
+
+        renderStatus('');
+    });
+</script>
+
+</body>
+</html>
