@@ -1,62 +1,49 @@
 # VicFreeWiFi Web Application
 
 ## Project Overview
-This project is a Java web application for visualizing and managing public WiFi locations in Victoria, Australia. It uses a SQLite database and a lightweight web server to provide a user-friendly interface for exploring WiFi access points.
-Try it out at [https://publicwifi-backend-189312279476.australia-southeast1.run.app/type]
+This project is a static website for visualizing public WiFi locations in Victoria, Australia. It is hosted on **GitHub Pages** and uses pre-exported WiFi data (sourced from a SQLite database) to provide a user-friendly interface for exploring WiFi access points without requiring a backend server.
+
+Try it out at: **https://karan-404.github.io/publicWifiVic/**
 
 ## Folder Structure
-```bash
-├── /src/main                    - Location of all files as required by build configuration
-│         ├── java               - Java Source location
-│         │    └── app           - package location for all Java files
-│         └── resources          - Web resources (html templates / style sheets)
-│               ├── css          - CSS Style-sheets
-│               └── images       - Image files
-│ 
-├── /target                      - build directory (DO NOT MODIFY)
-├── /database                    - The folder to store sqlite database files (*.db files)
-├── pom.xml                      - Configure Build (DO NOT MODIFY)
-└── README.md                    - This file ;)
+```
+docs/
+  index.html        - Home page
+  location.html     - WiFi Locations page (with interactive map)
+  type.html         - Connection Types page
+  status1.html      - Network Status page
+  setup.html        - Setup & Safety page
+  css/              - CSS Style-sheets
+  images/           - Image files (logo etc.)
+  data/             - Pre-exported WiFi data (wifi-data.js)
+
+src/                - Original Java backend source (legacy, not deployed)
+database/           - SQLite database (source of the WiFi data)
+.github/workflows/static.yml  - GitHub Actions workflow for Pages deployment
+pom.xml             - Maven build config for Java backend (legacy)
+README.md           - This file ;)
 ```
 
-## Key Libraries & Dependencies
-- **org.xerial.sqlite-jdbc**: SQLite JDBC driver for database connectivity
-- **javalin**: Lightweight Java web server
-- **slf4j-simple**: Logging (required by Javalin)
-
-All dependencies are managed via Maven in `pom.xml`.
-
-## Database
-- The SQLite database file is located in the `/database` folder.
-- Example: `vicfreewifi20ap20map20data2020170724.db`
-- You can use tools like DB Browser for SQLite to inspect or modify the database.
-
-## How to Build & Run
-1. **Open the project in VS Code**
-2. Let VS Code detect and configure the Maven project (accept prompts to download dependencies)
-3. **Build & Run:**
-   - Open `src/main/java/app/App.java`
-   - Click "Run" above the `main` method, or use the VS Code Run menu
-4. **Access the app:**
-   - Open your browser and go to: [http://localhost:7002](http://localhost:7002)
+## Deployment
+The site is deployed automatically to **GitHub Pages** via GitHub Actions whenever changes are pushed to the `main` branch. The workflow deploys the `docs/` folder as the static site.
 
 ## Features
-- View a map of public WiFi locations
-- Browse and search WiFi access points
-- Responsive web interface (HTML/CSS)
-- Data stored in a local SQLite database
+- View an interactive map of public WiFi locations (powered by Leaflet.js + OpenStreetMap)
+- Browse and search WiFi access points by name or address
+- Filter networks by connection type or status
+- Responsive web interface (HTML/CSS/JavaScript)
+- All 517 WiFi access point records embedded as static data (no backend required)
 
 ## Resources
-- `src/main/resources/firstpage.html`: Main HTML template
-- `src/main/resources/css/common.css`: Common styles
-- `src/main/resources/images/`: Project images and logos
-
-
+- `docs/index.html`: Home page
+- `docs/location.html`: Locations page with interactive map and search
+- `docs/type.html`: Connection types page
+- `docs/status1.html`: Network status page
+- `docs/setup.html`: Setup & Safety page
+- `docs/css/common.css`: Common styles
+- `docs/images/`: Project images and logos
+- `docs/data/wifi-data.js`: Pre-exported WiFi data from the SQLite database
 
 ---
 
 © 2025 VicFreeWiFi Project Team
-
-
-
-

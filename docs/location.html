@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>WiFi Locations - Public WiFi Melbourne</title>
+    <link rel="stylesheet" type="text/css" href="css/common.css" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="data/wifi-data.js"></script>
+</head>
+<body>
+
+<div class="topnav">
+    <a href="index.html">Public Wi-Fi Hub</a>
+    <a href="location.html">WiFi Locations</a>
+    <a href="type.html">Connection Types</a>
+    <a href="status1.html">Network Status</a>
+    <a href="setup.html">Setup &amp; Safety</a>
+</div>
+
+<div class="header">
+    <h1>
+        <img src="images/wifilogo.png" class="top-image" alt="WiFi logo" height="75">
+        <span class="gradient-text">Public WiFi Locations</span>
+    </h1>
+    <p class="header-subtitle">Discover all WiFi hotspots across Melbourne</p>
+</div>
+
+<div class="content">
+    <div id="map" style="height: 500px; width: 100%; margin-bottom: 2rem; border: 1px solid #ccc; border-radius: 8px;"></div>
+
+    <div class="search-form">
+        <label for="searchLongName">Search by Address or Location Name:</label>
+        <input type="text" id="searchLongName" placeholder="Enter address or location name...">
+        <input type="submit" value="Search Locations" onclick="applySearch()">
+    </div>
+
+    <div class="table-header">
+        <h2 class="table-title">WiFi Locations</h2>
+        <span class="table-count" id="locationCount">517 locations found</span>
+    </div>
+
+    <div class="table-container">
+        <table class="modern-table">
+            <thead>
+                <tr>
+                    <th>Location Name</th>
+                    <th>Address</th>
+                    <th>Latitude</th>
+                    <th>Longitude</th>
+                </tr>
+            </thead>
+            <tbody id="locationTableBody">
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div class="footer">
+    <div class="footer-content">
+        <div class="footer-section">
+            <p class="footer-heading">Contact Information</p>
+            <p class="footer-text">Email: ping@thesubquest.com</p>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <p class="footer-copyright">&copy; 2023 Melbourne Public WiFi Hub. All rights reserved.</p>
+    </div>
+</div>
+
+<script>
+    var map;
+    var markers = [];
+    var currentFilter = '';
+
+    function initMap() {
+        map = L.map('map').setView([-37.8136, 144.9631], 12);
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            maxZoom: 19,
+            attribution: '&copy; OpenStreetMap contributors'
+        }).addTo(map);
+    }
+
+    function renderLocations(filter) {
+        var filtered = filter
+            ? wifiData.filter(function(loc) {
+                return loc.longName.toLowerCase().indexOf(filter.toLowerCase()) !== -1
+                    || loc.name.toLowerCase().indexOf(filter.toLowerCase()) !== -1;
+              })
+            : wifiData;
+
+        // Clear existing markers
+        markers.forEach(function(m) { map.removeLayer(m); });
+        markers = [];
+
+        // Add markers
+        filtered.forEach(function(loc) {
+            if (loc.latitude && loc.longitude) {
+                var marker = L.marker([loc.latitude, loc.longitude]).addTo(map);
+                marker.bindPopup('<b>' + loc.name + '</b><br/>' + loc.longName);
+                markers.push(marker);
+            }
+        });
+
+        // Update table
+        var tbody = document.getElementById('locationTableBody');
+        tbody.innerHTML = '';
+        filtered.forEach(function(loc) {
+            var row = document.createElement('tr');
+            row.innerHTML = '<td>' + escapeHtml(loc.name) + '</td>'
+                          + '<td>' + escapeHtml(loc.longName) + '</td>'
+                          + '<td>' + loc.latitude + '</td>'
+                          + '<td>' + loc.longitude + '</td>';
+            tbody.appendChild(row);
+        });
+
+        document.getElementById('locationCount').textContent = filtered.length + ' locations found';
+    }
+
+    function escapeHtml(str) {
+        if (!str) return '';
+        return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+    }
+
+    function applySearch() {
+        currentFilter = document.getElementById('searchLongName').value;
+        renderLocations(currentFilter);
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+        initMap();
+        renderLocations('');
+
+        // Support pressing Enter in search box
+        document.getElementById('searchLongName').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') applySearch();
+        });
+    });
+</script>
+
+</body>
+</html>

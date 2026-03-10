@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Connection Types - Public WiFi Melbourne</title>
+    <link rel="stylesheet" type="text/css" href="css/common.css" />
+    <script src="data/wifi-data.js"></script>
+</head>
+<body>
+
+<div class="topnav">
+    <a href="index.html">Public Wi-Fi Hub</a>
+    <a href="location.html">WiFi Locations</a>
+    <a href="type.html">Connection Types</a>
+    <a href="status1.html">Network Status</a>
+    <a href="setup.html">Setup &amp; Safety</a>
+</div>
+
+<div class="header">
+    <h1>
+        <img src="images/wifilogo.png" class="top-image" alt="WiFi logo" height="75">
+        <span class="gradient-text">Public Wi-Fi Melbourne Connection Types</span>
+    </h1>
+    <p class="header-subtitle">Explore different types of Wi-Fi connections available</p>
+</div>
+
+<div class="content">
+    <div class="table-header">
+        <h2 class="table-title">WiFi Connection Types</h2>
+        <span class="table-count" id="typeCount">0 types available</span>
+    </div>
+
+    <div class="table-container">
+        <table class="modern-table">
+            <thead>
+                <tr>
+                    <th>Connection Type</th>
+                    <th>Number of Locations</th>
+                </tr>
+            </thead>
+            <tbody id="typeSummaryBody">
+            </tbody>
+        </table>
+    </div>
+
+    <div style="margin: 3rem 0;"></div>
+
+    <div class="table-header">
+        <h2 class="table-title">All WiFi Locations by Type</h2>
+    </div>
+
+    <div class="table-container">
+        <table class="modern-table">
+            <thead>
+                <tr>
+                    <th>Location Name</th>
+                    <th>Connection Type</th>
+                    <th>Full Address</th>
+                </tr>
+            </thead>
+            <tbody id="locationsByTypeBody">
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div class="footer">
+    <div class="footer-content">
+        <div class="footer-section">
+            <p class="footer-heading">Contact Information</p>
+            <p class="footer-text">Email: ping@thesubquest.com</p>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <p class="footer-copyright">&copy; 2023 Melbourne Public WiFi Hub. All rights reserved.</p>
+    </div>
+</div>
+
+<script>
+    function escapeHtml(str) {
+        if (!str) return '';
+        return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+        // Build type counts
+        var typeCounts = {};
+        wifiData.forEach(function(loc) {
+            var kind = loc.kind ? loc.kind.toUpperCase() : 'UNKNOWN';
+            typeCounts[kind] = (typeCounts[kind] || 0) + 1;
+        });
+
+        var types = Object.keys(typeCounts).sort();
+        document.getElementById('typeCount').textContent = types.length + ' types available';
+
+        var summaryBody = document.getElementById('typeSummaryBody');
+        types.forEach(function(type) {
+            var row = document.createElement('tr');
+            row.innerHTML = '<td>' + escapeHtml(type) + '</td><td>' + typeCounts[type] + '</td>';
+            summaryBody.appendChild(row);
+        });
+
+        // Build locations by type table
+        var locBody = document.getElementById('locationsByTypeBody');
+        wifiData.forEach(function(loc) {
+            var row = document.createElement('tr');
+            row.innerHTML = '<td>' + escapeHtml(loc.name) + '</td>'
+                          + '<td>' + escapeHtml(loc.kind ? loc.kind.toUpperCase() : '') + '</td>'
+                          + '<td>' + escapeHtml(loc.longName) + '</td>';
+            locBody.appendChild(row);
+        });
+    });
+</script>
+
+</body>
+</html>
