@@ -1,9 +1,9 @@
-# VicFreeWiFi Web Application
+# Melbourne Public WiFi Hub
 
 ## Project Overview
-This project is a static website for visualizing public WiFi locations in Victoria, Australia. It is hosted on **GitHub Pages** and uses pre-exported WiFi data (sourced from a SQLite database) to provide a user-friendly interface for exploring WiFi access points without requiring a backend server.
+This project is a static website for visualizing public WiFi locations in Melbourne, Victoria, Australia. It is hosted on **GitHub Pages** and uses pre-exported WiFi data (sourced from a SQLite database) to provide a user-friendly interface for exploring WiFi access points without requiring a backend server.
 
-Try it out at: **https://karan-404.github.io/publicWifiVic/**
+Try it out at: **https://karan-404.github.io/MelbourneWifi/**
 
 ## Folder Structure
 ```
@@ -17,10 +17,7 @@ docs/
   images/           - Image files (logo etc.)
   data/             - Pre-exported WiFi data (wifi-data.js)
 
-src/                - Original Java backend source (legacy, not deployed)
-database/           - SQLite database (source of the WiFi data)
 .github/workflows/static.yml  - GitHub Actions workflow for Pages deployment
-pom.xml             - Maven build config for Java backend (legacy)
 README.md           - This file ;)
 ```
 
@@ -46,4 +43,4 @@ The site is deployed automatically to **GitHub Pages** via GitHub Actions whenev
 
 ---
 
-© 2025 VicFreeWiFi Project Team
+© 2023 Melbourne Public WiFi Hub
